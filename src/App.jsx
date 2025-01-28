@@ -9,6 +9,7 @@ import CategoriaForm from './Components/Pages/CategoriaForm';
 import ReceitaForm from './Components/Pages/ReceitaForm';
 import ReceitaListByCategoria from './Components/Pages/ReceitaListByCategoria';
 import UsuarioForm from './Components/Pages/UsuarioForm';
+import ClienteForm from './Components/Pages/ClienteForm';
 import LoginForm from './Components/Pages/LoginForm';
 import Menu from './Components/Layout/Menu'
 import Rodape from './Components/Layout/Rodape'
@@ -28,6 +29,7 @@ function App() {
           <Route path="/nova-receita" element={<ReceitaForm />} />
           <Route path="/usuarios" element={<UsuarioList />} />
           <Route path="/novo-usuario" element={<UsuarioForm />} />
+          <Route path="/novo-cliente" element={<ClienteForm />} />
       </Routes>
       <Rodape />
     </Router>
