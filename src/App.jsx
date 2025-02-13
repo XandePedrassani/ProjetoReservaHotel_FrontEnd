@@ -11,6 +11,10 @@ import ReceitaListByCategoria from './Components/Pages/ReceitaListByCategoria';
 import UsuarioForm from './Components/Pages/UsuarioForm';
 import ClienteForm from './Components/Pages/ClienteForm';
 import LoginForm from './Components/Pages/LoginForm';
+import ClienteList from './Components/Pages/ClienteList';
+import QuartoForm from './Components/Pages/QuartoForm';
+import QuartoList from './Components/Pages/QuartoList';
+
 import Menu from './Components/Layout/Menu'
 import Rodape from './Components/Layout/Rodape'
 
@@ -30,6 +34,9 @@ function App() {
           <Route path="/usuarios" element={<UsuarioList />} />
           <Route path="/novo-usuario" element={<UsuarioForm />} />
           <Route path="/novo-cliente" element={<ClienteForm />} />
+          <Route path="/clientes" element={<ClienteList />} />
+          <Route path="/novo-quarto" element={<QuartoForm />} />
+          <Route path="/quartos" element={<QuartoList />} />
       </Routes>
       <Rodape />
     </Router>

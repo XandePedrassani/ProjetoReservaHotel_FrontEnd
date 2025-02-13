@@ -36,6 +36,15 @@ function Menu() {
                     <li className="nav-item">
                         <Link to="/novo-cliente" className="nav-link">Cliente Cadastrar</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/clientes" className="nav-link">Clientes</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/novo-quarto" className="nav-link">Quarto Cadastrar</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/quartos" className="nav-link">Quartos</Link>
+                    </li>
                 </ul>
             </div>
         </nav>
