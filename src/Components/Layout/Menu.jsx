@@ -30,6 +30,12 @@ function Menu() {
                     <li className="nav-item">
                         <Link to="/quartos" className="nav-link">Quartos</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link to="/nova-reserva" className="nav-link">Reserva Cadastrar</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/reservas" className="nav-link">Reservas</Link>
+                    </li>
                 </ul>
             </div>
         </nav>
