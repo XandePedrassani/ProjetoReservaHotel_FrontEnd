@@ -12,8 +12,8 @@ const ReservaForm = () => {
     const [errorQuartos, setErrorQuartos] = useState(null);
     const [QuartoSelecionado, setQuartoSelecionado] = useState('');
     const [clienteSelecionado, setClienteSelecionado] = useState([]);
-
-
+    const [pagadorSelecionado, setPagadorSelecionado] = useState('');
+    
     // Buscar clientes/quartos ao carregar o componente
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -84,7 +84,8 @@ const ReservaForm = () => {
                     dtInicio: dtIn,
                     dtSaida: dtOut,
                     quarto_id: parseInt(QuartoSelecionado),
-                    clientes: clienteSelecionado
+                    clientes: clienteSelecionado,
+                    pagador_id: parseInt(pagadorSelecionado)
                 })
             });
 
@@ -151,6 +152,23 @@ const ReservaForm = () => {
                             {quartos.map(quarto => (
                                 <option key={quarto.id} value={quarto.id}>
                                     {quarto.descricao}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                </div>
+                <div>
+                    <label>Pagador:</label>
+                    {carregandoClientes ? (
+                        <p>Carregando clientes...</p>
+                    ) : errorClientes ? (
+                        <p style={{ color: 'red' }}>Erro ao carregar clientes: {errorClientes.message}</p>
+                    ) : (
+                        <select value={pagadorSelecionado} onChange={e => setPagadorSelecionado(e.target.value)} required>
+                            <option value="">Selecione um pagador</option>
+                            {clientes.map(cliente => (
+                                <option key={cliente.id} value={cliente.id}>
+                                    {cliente.nome}
                                 </option>
                             ))}
                         </select>
