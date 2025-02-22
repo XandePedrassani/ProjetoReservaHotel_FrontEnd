@@ -71,8 +71,40 @@ const ReservaForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('token'); // Obter token do localStorage
+        const token = localStorage.getItem('token');
 
+        try {
+            const response = await fetch('http://localhost:8081/api/reservas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    dtInicio: dtIn,
+                    dtSaida: dtOut,
+                    quarto_id: parseInt(QuartoSelecionado),
+                    clientes: clienteSelecionado
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`${response.status} - ${errorData?.message || response.statusText}`);
+            }
+
+            const data = await response.json();
+            setMensagem('Reserva criada com sucesso!');
+            // Limpar o formulário após o sucesso (opcional)
+            setDtIn('');
+            setDtOut('');
+            setQuartoSelecionado('');
+            setClienteSelecionado([]);
+
+        } catch (error) {
+            console.error("Error creating reserva:", error);
+            setMensagem(`Erro ao criar reserva: ${error.message}`); // Exibe a mensagem de erro
+        }
     };
 
     const handleClientSelect = (event) => {
