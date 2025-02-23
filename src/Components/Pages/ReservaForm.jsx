@@ -13,7 +13,8 @@ const ReservaForm = () => {
     const [QuartoSelecionado, setQuartoSelecionado] = useState('');
     const [clienteSelecionado, setClienteSelecionado] = useState([]);
     const [pagadorSelecionado, setPagadorSelecionado] = useState('');
-    
+    const [formErrors, setFormErrors] = useState({}); // State for storing validation errors
+
     // Buscar clientes/quartos ao carregar o componente
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -69,8 +70,63 @@ const ReservaForm = () => {
         fetchQuartos();
     }, []);
 
+    const validaDados = () => {
+        let errors = {};
+        let isValid = true;
+
+        if (!dtIn) {
+            errors.dtIn = "Data de entrada é obrigatória.";
+            isValid = false;
+        }
+
+        if (!dtOut) {
+            errors.dtOut = "Data de saída é obrigatória.";
+            isValid = false;
+        }
+
+        if (!QuartoSelecionado) {
+            errors.quarto = "Quarto é obrigatório.";
+            isValid = false;
+        }
+
+        if (clienteSelecionado.length === 0 || clienteSelecionado.length > 3) {
+            errors.clientes = "Pelo menos um e no máximo 3 clientes devem ser selecionados.";
+            isValid = false;
+        }
+
+        if (!clienteSelecionado.includes(pagadorSelecionado)) {
+            errors.pagador = "Cliente pagador deve estar incluso nos clientes selecionados.";
+            isValid = false;
+        }
+
+        if (!pagadorSelecionado) {
+            errors.pagador = "Pagador é obrigatório.";
+            isValid = false;
+        }
+
+        const dataInicio = new Date(dtIn);
+        const dataSaida = new Date(dtOut);
+
+        if (isNaN(dataInicio) || isNaN(dataSaida)) {
+            errors.dtIn = "Datas inválidas.";
+            errors.dtOut = "Datas inválidas.";
+            isValid = false;
+        } else if (dataSaida <= dataInicio) {
+            errors.dtOut = "Data de saída deve ser posterior à data de entrada.";
+            isValid = false;
+        }
+
+        setFormErrors(errors);
+        return isValid;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validaDados()) { 
+            return;
+        }
+
         const token = localStorage.getItem('token');
 
         try {
@@ -119,10 +175,12 @@ const ReservaForm = () => {
                 <div>
                     <label>Data Entrada</label>
                     <input type="date" value={dtIn} onChange={e => setDtIn(e.target.value)} required />
+                    {formErrors.dtIn && <p className="error">{formErrors.dtIn}</p>}
                 </div>
                 <div>
                     <label>Data Saída</label>
                     <input type="date" value={dtOut} onChange={e => setDtOut(e.target.value)} required />
+                    {formErrors.dtOut && <p className="error">{formErrors.dtOut}</p>}
                 </div>
                 <div>
                     <label>Clientes</label>
@@ -139,6 +197,7 @@ const ReservaForm = () => {
                             ))}
                         </select>
                     )}
+                    {formErrors.clientes && <p className="error">{formErrors.clientes}</p>}
                 </div>
                 <div>
                     <label>Quarto</label>
@@ -156,6 +215,7 @@ const ReservaForm = () => {
                             ))}
                         </select>
                     )}
+                    {formErrors.quarto && <p className="error">{formErrors.quarto}</p>}
                 </div>
                 <div>
                     <label>Pagador:</label>
@@ -173,6 +233,7 @@ const ReservaForm = () => {
                             ))}
                         </select>
                     )}
+                    {formErrors.pagador && <p className="error">{formErrors.pagador}</p>} {/* Display error */}
                 </div>
                 <button type="submit">Criar Reserva</button>
             </form>
