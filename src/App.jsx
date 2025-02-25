@@ -10,10 +10,10 @@ import ClienteList from './Components/Pages/ClienteList';
 import QuartoForm from './Components/Pages/QuartoForm';
 import QuartoList from './Components/Pages/QuartoList';
 import ReservaForm from './Components/Pages/ReservaForm';
-import ReservaList from './Components/Pages/ReservaList';
+import DisponibilidadeQuartos from './Components/Pages/DisponibilidadeQuartos';
 
 import Menu from './Components/Layout/Menu'
-import Rodape from './Components/Layout/Rodape'
+import ReservaList from './Components/Pages/ReservaList';
 
 function App() {
   return (
@@ -31,8 +31,8 @@ function App() {
           <Route path="/quartos" element={<QuartoList />} />
           <Route path="/nova-reserva" element={<ReservaForm />} />
           <Route path="/reservas" element={<ReservaList />} />
+          <Route path="/disponibilidade" element={<DisponibilidadeQuartos />} />
       </Routes>
-      <Rodape />
     </Router>
     </>
   );
