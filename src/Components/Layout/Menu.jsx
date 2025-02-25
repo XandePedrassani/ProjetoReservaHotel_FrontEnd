@@ -7,9 +7,6 @@ function Menu() {
             <div className="container">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link to="/" className="nav-link">Home</Link>
-                    </li>
-                    <li className="nav-item">
                         <Link to="/login" className="nav-link">Login</Link>
                     </li>
                     <li className="nav-item">
@@ -35,6 +32,9 @@ function Menu() {
                     </li>
                     <li className="nav-item">
                         <Link to="/reservas" className="nav-link">Reservas</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/disponibilidade" className="nav-link">Disponibilidade De Quartos</Link>
                     </li>
                 </ul>
             </div>
